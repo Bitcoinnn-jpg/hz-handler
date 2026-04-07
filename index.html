@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -135,6 +135,7 @@ h1 {
   bottom: 5px;
   font-size: 0.7rem;
   opacity: 0.4;
+  cursor: pointer;
 }
 
 /* CUSTOM SCROLLBAR */
@@ -161,6 +162,21 @@ h1 {
   overflow-y: auto;
   max-height: 50vh;
   padding-right: 10px;
+}
+
+/* MOBILE SPECIFIC */
+@media (max-width: 768px) {
+  body { perspective: 1000px; }
+
+  .container {
+    transform-style: preserve-3d;
+    animation: fadeInMobile 1.2s ease;
+  }
+
+  @keyframes fadeInMobile {
+    from { opacity: 0; transform: rotateX(15deg) translateY(20px); }
+    to { opacity: 1; transform: rotateX(0deg) translateY(0); }
+  }
 }
 </style>
 </head>
@@ -191,42 +207,40 @@ h1 {
 <b>Дата последнего обновления:</b> 06.04.2026<br><br>
 
 <b>1. Общие положения</b><br>
-Настоящие Условия использования регулируют доступ и использование веб-сайта hz-handler, принадлежащего HZ FAMILY.<br><br>
-Используя Сайт, вы подтверждаете согласие с Условиями.<br><br>
+Настоящие Условия использования (далее — «Условия») регулируют доступ и использование веб-сайта hz-handler, принадлежащего HZ FAMILY (далее — «Правообладатель»). Используя Сайт, вы подтверждаете согласие с Условиями и обязуетесь их соблюдать.<br><br>
 
 <b>2. Глобальная правовая защита</b><br>
-Все материалы защищены международным правом и законами об интеллектуальной собственности.<br><br>
+Все материалы сайта защищены международным правом и законами об интеллектуальной собственности. Любое нарушение этих прав может повлечь юридическую ответственность.<br><br>
 
 <b>3. Авторские права</b><br>
-Все элементы сайта являются собственностью HZ FAMILY.<br>
-Любое использование без разрешения запрещено.<br><br>
+Все тексты, изображения, графика, видео и другие элементы сайта являются собственностью HZ FAMILY. Любое использование без письменного разрешения запрещено.<br><br>
 
 <b>4. Ограниченная лицензия</b><br>
-Разрешено только личное некоммерческое использование.<br><br>
+Правообладатель предоставляет пользователю ограниченную, неисключительную лицензию на личное и некоммерческое использование материалов сайта. Любое коммерческое использование запрещено.<br><br>
 
 <b>5. Запрещённое использование</b><br>
-Запрещены взлом, боты, вредоносные действия.<br><br>
+Пользователю запрещено использовать сайт для незаконных целей, в том числе: взлом систем, создание ботов, распространение вирусов и нарушение законодательства.<br><br>
 
 <b>6. Ограничение ответственности</b><br>
-Сайт предоставляется "как есть" без гарантий.<br><br>
+Сайт предоставляется «как есть». Правообладатель не несет ответственности за прямые или косвенные убытки, возникшие при использовании сайта.<br><br>
 
 <b>7. Внешние ссылки</b><br>
-Мы не отвечаем за сторонние ресурсы.<br><br>
+Сайт может содержать ссылки на сторонние ресурсы. Правообладатель не несет ответственности за их содержимое.<br><br>
 
-<b>8. Данные</b><br>
-Могут собираться технические данные (cookies, IP).<br><br>
+<b>8. Сбор данных</b><br>
+Для корректной работы сайта могут собираться технические данные, включая cookies и IP-адреса.<br><br>
 
 <b>9. Cookies</b><br>
-Используются для улучшения сайта.<br><br>
+Используются для улучшения работы сайта и персонализации контента.<br><br>
 
 <b>10. Прекращение доступа</b><br>
-Доступ может быть ограничен без объяснения причин.<br><br>
+Правообладатель оставляет за собой право ограничить доступ к сайту без объяснения причин.<br><br>
 
-<b>11. Изменения</b><br>
-Условия могут изменяться в любое время.<br><br>
+<b>11. Изменения условий</b><br>
+Правообладатель может изменять Условия в любое время. Продолжение использования сайта после изменений означает согласие с ними.<br><br>
 
-<b>12. Право</b><br>
-Применяется юрисдикция правообладателя.<br><br>
+<b>12. Применимое право</b><br>
+К Условиям примененияется законодательство юрисдикции правообладателя.<br><br>
 
 <b>13. Контакты</b><br>
 Email: hzfam111ly@gmail.com
@@ -245,7 +259,7 @@ Email: hzfam111ly@gmail.com
   </div>
 </div>
 
-<div class="footer" onclick="showText()" style="cursor:pointer;">© 2026 HZ FAMILY. All rights reserved.</div>
+<div class="footer" onclick="showText()">© 2026 HZ FAMILY. All rights reserved.</div>
 
 <script>
 window.addEventListener('DOMContentLoaded', () => {
@@ -279,6 +293,17 @@ window.addEventListener('DOMContentLoaded', () => {
       requestAnimationFrame(animate);
     }
     animate();
+
+    // Mobile 3D tilt
+    if(window.innerWidth <= 768) {
+      document.addEventListener('deviceorientation', (event) => {
+        const xTilt = event.gamma; // left-right
+        const yTilt = event.beta;  // front-back
+        document.querySelectorAll('.container').forEach(el => {
+          el.style.transform = `rotateY(${xTilt}deg) rotateX(${-yTilt}deg)`;
+        });
+      });
+    }
   }
   initEffects();
 
@@ -301,7 +326,6 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('textPage').style.display = 'none';
     document.getElementById('mainPage').style.display = 'block';
   };
-
 });
 </script>
 
