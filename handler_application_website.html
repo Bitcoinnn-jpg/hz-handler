@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Be a Handler</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+    body {
+      -webkit-tap-highlight-color: transparent;
+      height: 100vh;
+      background: radial-gradient(circle at center, #111, #000);
+      color: white;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .glow {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: screen;
+    }
+
+    .g1 { background: radial-gradient(circle, rgba(238,255,233,0.4), transparent 60%); }
+    .g2 { background: radial-gradient(circle, rgba(238,255,233,0.25), transparent 60%); }
+    .g3 { background: radial-gradient(circle, rgba(238,255,233,0.2), transparent 60%); }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      animation: fadeIn 1.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      letter-spacing: 6px;
+      font-weight: 300;
+      background: linear-gradient(90deg, #fff, #eeffe9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 25px rgba(238,255,233,0.3);
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      opacity: 0.6;
+      margin-bottom: 40px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(120px, 180px));
+      gap: 12px;
+      justify-content: center;
+      max-width: 400px;
+    }
+
+    .full { grid-column: span 2; }
+
+    .btn {
+      padding: 15px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      backdrop-filter: blur(25px);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--x,50%) var(--y,50%), rgba(238,255,233,0.4), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .btn:hover::after { opacity: 1; }
+
+    .btn:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 25px rgba(238,255,233,0.5);
+      border-color: rgba(238,255,233,0.4);
+    }
+
+    .btn:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 25px rgba(238,255,233,0.5);
+    }
+
+    .socials {
+      position: absolute;
+      bottom: 35px;
+      display: flex;
+      gap: 18px;
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .icon:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 20px rgba(238,255,233,0.7);
+    }
+
+    .icon img { width: 22px; }
+
+    .footer {
+      position: absolute;
+      bottom: 5px;
+      font-size: 0.7rem;
+      opacity: 0.4;
+    }
+  </style>
+</head>
+<body>
+
+<div class="glow g1" id="g1"></div>
+<div class="glow g2" id="g2"></div>
+<div class="glow g3" id="g3"></div>
+
+<div class="container">
+  <h1>BE A HANDLER.</h1>
+  <div class="subtitle">Just handle...</div>
+
+  <div class="grid">
+    <button class="btn full" onclick="go('news')">News</button>
+    <button class="btn" onclick="go('chat')">Chat</button>
+    <button class="btn" onclick="go('voice')">Voice</button>
+    <button class="btn" onclick="go('spill')">Spill</button>
+    <button class="btn" onclick="go('events')">Events</button>
+  </div>
+</div>
+
+<div class="socials">
+  <div class="icon" onclick="goSocial('discord')">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png">
+  </div>
+  <div class="icon" onclick="goSocial('tiktok')">
+    <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png">
+  </div>
+  <div class="icon" onclick="goSocial('telegram')">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png">
+  </div>
+</div>
+
+<div class="footer" onclick="goCopyright()" style="cursor:pointer;">© 2026 HZ FAMILY. All rights reserved.</div>
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+
+  const links = {
+    news: "https://forms.gle/YOUR_NEWS_FORM",
+    chat: "https://forms.gle/YOUR_CHAT_FORM",
+    spill: "https://forms.gle/YOUR_SPILL_FORM",
+    events: "https://forms.gle/YOUR_EVENTS_FORM",
+    voice: "https://forms.gle/YOUR_VOICE_FORM"
+  };
+
+  window.go = function(type) {
+    if (links[type]) window.location.href = links[type];
+  };
+
+  const socials = {
+    discord: "https://discord.gg/YOUR_SERVER",
+    tiktok: "https://tiktok.com/@YOUR_TIKTOK",
+    telegram: "https://t.me/YOUR_TELEGRAM"
+  };
+
+  window.goSocial = function(type) {
+    if (socials[type]) window.location.href = socials[type];
+  };
+
+  // EFFECT INIT FUNCTION
+  function initEffects() {
+    const g1 = document.querySelector('.g1');
+    const g2 = document.querySelector('.g2');
+    const g3 = document.querySelector('.g3');
+
+    let x = window.innerWidth / 2;
+    let y = window.innerHeight / 2;
+
+    document.onmousemove = (e) => {
+      x = e.clientX;
+      y = e.clientY;
+    };
+
+    function animate() {
+      if (g1 && g2 && g3) {
+        g1.style.left = x + 'px';
+        g1.style.top = y + 'px';
+        g2.style.left = x * 0.8 + 'px';
+        g2.style.top = y * 0.8 + 'px';
+        g3.style.left = x * 0.6 + 'px';
+        g3.style.top = y * 0.6 + 'px';
+      }
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  }
+
+  initEffects();
+
+  // BUTTON LIGHT FOLLOW
+  document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const rect = btn.getBoundingClientRect();
+      btn.style.setProperty('--x', (e.clientX - rect.left) + 'px');
+      btn.style.setProperty('--y', (e.clientY - rect.top) + 'px');
+    });
+  });
+
+  // CUSTOM COPYRIGHT TEXT
+  const copyrightText = "© 2026 HZ FAMILY. All rights reserved.";
+
+  window.goCopyright = function() {
+    document.body.innerHTML = `
+      <div class="glow g1"></div>
+      <div class="glow g2"></div>
+      <div class="glow g3"></div>
+
+      <div class="container" style="transform:none;">
+        <h1 style="margin-top:-40px;">BE A HANDLER.</h1>
+        <div style="margin-top:30px;max-width:300px;font-size:0.9rem;opacity:0.7;line-height:1.5;">
+        YOUR CUSTOM TEXT HERE
+      </div>
+      </div>
+
+      <div style="position:absolute;bottom:5px;font-size:0.7rem;opacity:0.4;">${copyrightText}</div>
+    `;
+
+    // re-init effects on new page
+    initEffects();
+  };
+
+});
+</script>
+
+</body>
+</html>
