@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Be a Handler</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
@@ -73,16 +73,18 @@ h1 {
   margin-bottom: 30px;
 }
 
+/* Сетка для десктопа */
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(140px, 180px));
   gap: 15px;
   justify-content: center;
+  width: 100%;
 }
 
 .full { grid-column: span 2; }
 
-/* ---------- КНОПКИ (ВИЗУАЛЬНО КАК В ПЕРВОЙ ВЕРСИИ) ---------- */
+/* Кнопки */
 .btn {
   padding: 16px;
   border-radius: 14px;
@@ -90,12 +92,16 @@ h1 {
   background: rgba(255,255,255,0.05);
   color: white;
   font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
   backdrop-filter: blur(25px);
-  transition: all 0.2s ease;   /* чуть быстрее для отзывчивости */
+  transition: all 0.2s ease;
   position: relative;
   overflow: hidden;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -109,25 +115,20 @@ h1 {
   pointer-events: none;
 }
 
-/* Hover только для устройств с мышью (без изменений внешнего вида) */
 @media (hover: hover) {
   .btn:hover {
-    transform: scale(1.03);      /* как в оригинале */
+    transform: scale(1.03);
     box-shadow: 0 0 20px rgba(238,255,233,0.3);
     border-color: rgba(238,255,233,0.4);
   }
-  .btn:hover::after {
-    opacity: 1;
-  }
+  .btn:hover::after { opacity: 1; }
 }
 
-/* Активное состояние (нажатие) — добавлено для лучшей обратной связи */
 .btn:active {
   transform: scale(0.97);
-  background: rgba(255,255,255,0.1);   /* слегка подсвечивается при тапе */
+  background: rgba(255,255,255,0.1);
   box-shadow: 0 0 25px rgba(238,255,233,0.5);
   border-color: rgba(238,255,233,0.5);
-  transition: transform 0.1s;
 }
 
 /* Scrollable text box */
@@ -147,13 +148,8 @@ h1 {
   border: 1px solid rgba(255,255,255,0.05);
 }
 
-/* Центр текста только на ПК */
 @media (min-width: 769px) {
-  .text-scroll {
-    text-align: center;
-    max-width: 500px;
-    margin: 0 auto;
-  }
+  .text-scroll { text-align: center; max-width: 500px; margin: 0 auto; }
 }
 
 /* Social icons */
@@ -180,7 +176,6 @@ h1 {
 }
 .icon img { width: 22px; }
 
-/* Footer centered */
 .footer {
   width: 100%;
   text-align: center;
@@ -193,21 +188,45 @@ h1 {
 }
 .footer:hover { opacity: 0.8; }
 
-/* Scrollbar */
+/* ИСПРАВЛЕННАЯ МОБИЛЬНАЯ ВЕРСИЯ ПОД СКРИНШОТ */
+@media (max-width: 768px) {
+  .container { padding: 0 15px; }
+  
+  h1 { font-size: 2.3rem; letter-spacing: 4px; margin-bottom: 5px; }
+  .subtitle { margin-bottom: 35px; font-size: 0.85rem; }
+
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    max-width: 450px; /* Ширина блока кнопок на мобильных */
+  }
+
+  .btn {
+    flex: 1 1 47%; /* Две кнопки в ряд */
+    padding: 22px 10px; /* Увеличиваем высоту как на скрине */
+    font-size: 0.95rem;
+    font-weight: 600; /* Более жирный шрифт */
+    border-radius: 18px; /* Сильное скругление */
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .btn.full {
+    flex: 1 1 100%; /* Кнопка News на всю ширину */
+    margin-bottom: 2px;
+  }
+
+  .socials { margin-top: 45px; gap: 20px; }
+  .icon { width: 50px; height: 50px; }
+  .icon img { width: 24px; }
+}
+
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, rgba(238,255,233,0.6), rgba(238,255,233,0.2));
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(238,255,233,0.4);
-}
-
-/* ---------- МОБИЛЬНАЯ ВЕРСИЯ (ИДЕНТИЧНО ПЕРВОМУ ВАРИАНТУ) ---------- */
-@media (max-width: 768px) {
-  h1 { font-size: 2.5rem; letter-spacing: 4px; }
-  .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .subtitle { margin-bottom: 25px; }
-  .socials { margin-top: 30px; }
 }
 </style>
 </head>
@@ -231,7 +250,7 @@ h1 {
 
 <div class="container" id="textPage" style="display:none;">
   <h1>TERMS</h1>
-  <button class="btn full" onclick="showMain()" style="margin-bottom:20px; max-width: 200px;">← Back</button>
+  <button class="btn" onclick="showMain()" style="margin-bottom:20px; max-width: 150px; padding: 10px;">← Back</button>
   <div class="text-scroll">
     <b>Дата последнего обновления:</b> 06.04.2026<br><br>
     <b>1. Общие положения</b><br>
@@ -266,13 +285,13 @@ h1 {
 
 <div class="socials">
   <div class="icon" onclick="goSocial('discord')">
-    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord">
   </div>
   <div class="icon" onclick="goSocial('tiktok')">
-    <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png">
+    <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok">
   </div>
   <div class="icon" onclick="goSocial('telegram')">
-    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram">
   </div>
 </div>
 
@@ -319,11 +338,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
   window.showText = () => {
     document.getElementById('mainPage').style.display = 'none';
-    document.getElementById('textPage').style.display = 'block';
+    document.getElementById('textPage').style.display = 'flex';
   };
   window.showMain = () => {
     document.getElementById('textPage').style.display = 'none';
-    document.getElementById('mainPage').style.display = 'block';
+    document.getElementById('mainPage').style.display = 'flex';
   };
 });
 </script>
