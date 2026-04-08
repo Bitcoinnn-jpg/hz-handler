@@ -82,6 +82,7 @@ h1 {
 
 .full { grid-column: span 2; }
 
+/* ---------- КНОПКИ (ВИЗУАЛЬНО КАК В ПЕРВОЙ ВЕРСИИ) ---------- */
 .btn {
   padding: 16px;
   border-radius: 14px;
@@ -91,10 +92,11 @@ h1 {
   font-size: 1rem;
   cursor: pointer;
   backdrop-filter: blur(25px);
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;   /* чуть быстрее для отзывчивости */
   position: relative;
   overflow: hidden;
   width: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn::after {
@@ -103,13 +105,29 @@ h1 {
   inset: 0;
   background: radial-gradient(circle at var(--x,50%) var(--y,50%), rgba(238,255,233,0.4), transparent 60%);
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.2s;
+  pointer-events: none;
 }
-.btn:hover::after { opacity: 1; }
-.btn:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 20px rgba(238,255,233,0.3);
-  border-color: rgba(238,255,233,0.4);
+
+/* Hover только для устройств с мышью (без изменений внешнего вида) */
+@media (hover: hover) {
+  .btn:hover {
+    transform: scale(1.03);      /* как в оригинале */
+    box-shadow: 0 0 20px rgba(238,255,233,0.3);
+    border-color: rgba(238,255,233,0.4);
+  }
+  .btn:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Активное состояние (нажатие) — добавлено для лучшей обратной связи */
+.btn:active {
+  transform: scale(0.97);
+  background: rgba(255,255,255,0.1);   /* слегка подсвечивается при тапе */
+  box-shadow: 0 0 25px rgba(238,255,233,0.5);
+  border-color: rgba(238,255,233,0.5);
+  transition: transform 0.1s;
 }
 
 /* Scrollable text box */
@@ -129,7 +147,7 @@ h1 {
   border: 1px solid rgba(255,255,255,0.05);
 }
 
-/* 👉 Центр текста только на ПК */
+/* Центр текста только на ПК */
 @media (min-width: 769px) {
   .text-scroll {
     text-align: center;
@@ -184,7 +202,7 @@ h1 {
   box-shadow: 0 0 10px rgba(238,255,233,0.4);
 }
 
-/* MOBILE */
+/* ---------- МОБИЛЬНАЯ ВЕРСИЯ (ИДЕНТИЧНО ПЕРВОМУ ВАРИАНТУ) ---------- */
 @media (max-width: 768px) {
   h1 { font-size: 2.5rem; letter-spacing: 4px; }
   .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
